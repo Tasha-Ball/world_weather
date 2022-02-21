@@ -158,9 +158,10 @@ export default {
     },
 
     getSity (name, index) {
+      console.log(name, index)
       if (name) this.city = name
       localStorage.clear()
-      fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.city},RU&appid=7a41ab91e4650db93a715fa7e390e998`)
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.city},RU&appid=7a41ab91e4650db93a715fa7e390e998`)
         .then(res => res.json())
         .then(res => {
           if (res.cod === '404') {
@@ -221,6 +222,10 @@ export default {
     const weather = JSON.parse(localStorage.getItem('weather'))
     if (weather) {
       this.weather = weather
+      this.requestDone = true
+    }
+    if (!this.weather.length) {
+      this.getSity('moscow', 0)
       this.requestDone = true
     }
   },
